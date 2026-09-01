@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX IF NOT EXISTS snapshots_taken_on_key ON public.snapshots (taken_on);

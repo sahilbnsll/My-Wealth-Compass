@@ -1,0 +1,816 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition — dark-first financial terminal.
+ *
+ * Surfaces step up in three levels so elevation is readable:
+ *   base (page) -> surface-1 (cards) -> surface-2 (raised/hover) -> surface-3 (inputs inside cards)
+ *
+ * Colour communicates status only. Neutral figures stay --text-primary.
+ */
+
+@theme inline {
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: var(--radius);
+  --radius-xl: 14px;
+  --radius-2xl: 18px;
+  --radius-3xl: 22px;
+  --radius-4xl: 26px;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  /* Surface ladder */
+  --color-surface-1: var(--bg-surface-1);
+  --color-surface-2: var(--bg-surface-2);
+  --color-surface-3: var(--bg-surface-3);
+  --color-border-subtle: var(--border-subtle);
+
+  /* Text hierarchy */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-tertiary);
+  --color-text-disabled: var(--text-disabled);
+
+  /* Status */
+  --color-positive: var(--positive);
+  --color-positive-foreground: var(--positive-foreground);
+  --color-negative: var(--negative);
+  --color-warning: var(--warning);
+  --color-teal: var(--accent-teal);
+
+
+  /* Chart encoding */
+  --color-chart-1: var(--chart-equity);
+  --color-chart-2: var(--chart-debt);
+  --color-chart-3: var(--chart-gold);
+  --color-chart-4: var(--chart-cash);
+  --color-chart-5: var(--accent-teal);
+  --color-chart-equity: var(--chart-equity);
+  --color-chart-debt: var(--chart-debt);
+  --color-chart-gold: var(--chart-gold);
+  --color-chart-cash: var(--chart-cash);
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Type scale: 12 / 13 / 14 / 16 / 20 / 28 / 36 / 48 */
+  --text-2xs: 12px;
+  --text-xs: 13px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 20px;
+  --text-xl: 28px;
+  --text-2xl: 36px;
+  --text-3xl: 48px;
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* Light — warm off-white workspace, graphite type, amber accent.
+ * Tuned for contrast and calm: deeper amber reads as confident rather than
+ * washed-out, and the teal is pushed towards jewel-green for a modern edge. */
+:root {
+  --radius: 12px;
+
+  /* 4px base spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+
+  --bg-base: #f7f6f2;
+  --bg-surface-1: #fffefa;
+  --bg-surface-2: #f2f0ea;
+  --bg-surface-3: #e9e6de;
+  --border-subtle: rgba(30, 29, 25, 0.075);
+  --border-default: rgba(30, 29, 25, 0.12);
+
+  --text-primary: #1c1b18;
+  --text-secondary: #5d5a53;
+  --text-tertiary: #858178;
+  --text-disabled: #b6b2a9;
+
+
+  --accent-primary: #9a6b2f;
+  --accent-teal: #177466;
+
+  --positive: #287652;
+  --negative: #b6504e;
+  --warning: #a76d1d;
+
+  --chart-equity: #0d7567;
+  --chart-debt: #a86a0b;
+  --chart-gold: #c9992e;
+  --chart-cash: #8a867e;
+
+  --background: var(--bg-base);
+  --foreground: var(--text-primary);
+  --card: var(--bg-surface-1);
+  --card-foreground: var(--text-primary);
+  --popover: var(--bg-surface-1);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--accent-primary);
+  --primary-foreground: #fffdf7;
+  --secondary: var(--bg-surface-2);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--bg-surface-2);
+  --muted-foreground: var(--text-secondary);
+  --accent: var(--bg-surface-2);
+  --accent-foreground: var(--text-primary);
+  --destructive: var(--negative);
+  --destructive-foreground: #fffdf7;
+  --positive-foreground: #f2fbf4;
+  --border: var(--border-default);
+  --input: var(--border-default);
+  --ring: var(--accent-primary);
+
+  --sidebar: #f5f3ee;
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--accent-primary);
+  --sidebar-primary-foreground: #fffdf7;
+  --sidebar-accent: var(--bg-surface-2);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border: var(--border-subtle);
+  --sidebar-ring: var(--accent-primary);
+
+  --shadow-card: 0 1px 1px rgba(24, 22, 18, 0.03), 0 6px 18px -16px rgba(24, 22, 18, 0.15);
+  --shadow-raised: 0 16px 34px -24px rgba(24, 22, 18, 0.26);
+  --inset-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --ring-accent: 0 0 0 1px color-mix(in oklab, var(--accent-primary) 16%, transparent);
+
+
+  /* Spacing rhythm — used by section/stack utilities. */
+  --space-section: 40px;
+  --space-block: 24px;
+
+  color-scheme: light;
+}
+
+/* Dark — near-black canvas with a faint warm undertone, layered graphite
+ * surfaces, warm gold accent. Surfaces carry a subtle warmth so the dark
+ * mode reads as a designed space rather than a flat inversion. */
+.dark {
+  --bg-base: #0a0a0b;
+  --bg-surface-1: #131315;
+  --bg-surface-2: #1a1a1d;
+  --bg-surface-3: #242428;
+  --border-subtle: rgba(255, 255, 255, 0.075);
+  --border-default: rgba(255, 255, 255, 0.115);
+
+  --text-primary: #f3f1ed;
+  --text-secondary: #b0ada5;
+  --text-tertiary: #79766f;
+  --text-disabled: #4a4844;
+
+  --accent-primary: #d8b67c;
+  --accent-teal: #70b8ac;
+
+  --positive: #79bb95;
+  --negative: #d47c77;
+  --warning: #c8a260;
+
+  --chart-equity: #70b8ac;
+  --chart-debt: #d8b67c;
+  --chart-gold: #cbb98e;
+  --chart-cash: #85868b;
+
+  --primary-foreground: #17130a;
+  --destructive-foreground: #f5f6f7;
+  --positive-foreground: #08170d;
+  --popover: var(--bg-surface-2);
+  --ring: var(--accent-primary);
+
+  --sidebar: #0d0d0f;
+
+  --shadow-card: 0 1px 1px rgba(0, 0, 0, 0.28), 0 12px 24px -22px rgba(0, 0, 0, 0.8);
+  --shadow-raised: 0 20px 42px -28px rgba(0, 0, 0, 0.92);
+  --inset-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --ring-accent: 0 0 0 1px color-mix(in oklab, var(--accent-primary) 22%, transparent);
+
+
+  color-scheme: dark;
+}
+
+
+@layer base {
+  * {
+    border-color: var(--border-default);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.006em;
+  }
+
+  ::selection { background: color-mix(in oklab, var(--accent-primary) 24%, transparent); }
+
+  button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+  input, select, textarea { font: inherit; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: color-mix(in oklab, var(--text-tertiary) 35%, transparent); border: 3px solid var(--bg-base); border-radius: 999px; }
+
+  /* Keep theme changes on the composited page shell. Applying transitions to
+   * every card, chart path and icon is expensive and creates the lag users
+   * feel during a dark/light swap. */
+  html[data-theme-changing="true"] body {
+    transition: background-color 160ms ease-out, color 160ms ease-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html[data-theme-changing="true"] body {
+      transition-duration: 0ms;
+    }
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.021em;
+  }
+
+  /* Financial figures line up column-wise. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  :focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--accent-primary) 70%, transparent);
+    outline-offset: 2px;
+  }
+}
+
+/* --- Typography roles ----------------------------------------------------
+ * Hierarchy: display > page-title > section-title > metric > body > label >
+ * meta > provenance. Figures always use tabular numerals so columns align.
+ */
+
+/* Section eyebrow: quiet, wide, never competes with the figure below it. */
+@utility eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+@utility type-display {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.2vw, 46px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+@utility type-page-title {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.6vw, 30px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.022em;
+  color: var(--text-primary);
+}
+
+@utility type-section-title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.014em;
+  color: var(--text-primary);
+}
+
+@utility type-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+@utility type-body-strong {
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+@utility type-label {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+@utility type-meta {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--text-tertiary);
+}
+
+/* Source / freshness annotations under a figure. */
+@utility type-provenance {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Any inline financial figure. */
+@utility figure-num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.01em;
+}
+
+@utility figure-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.01em;
+}
+
+/* --- Spacing & responsive width ------------------------------------------
+ * 4px base scale. Page gutters and content width step with the viewport so
+ * wide screens gain analysis room instead of empty margins.
+ */
+
+@utility page-gutter {
+  padding-inline: var(--space-4);
+  @media (min-width: 768px) {
+    padding-inline: var(--space-6);
+  }
+  @media (min-width: 1200px) {
+    padding-inline: var(--space-8);
+  }
+  @media (min-width: 1600px) {
+    padding-inline: var(--space-10);
+  }
+}
+
+/* Full analytical workspace: charts, tables, side-by-side analysis. */
+@utility app-container {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 1360px;
+  @media (min-width: 1600px) {
+    max-width: 1640px;
+  }
+  @media (min-width: 1920px) {
+    max-width: 1840px;
+  }
+}
+
+/* Reading-width container for forms and prose. */
+@utility content-narrow {
+  width: 100%;
+  max-width: 720px;
+}
+
+@utility stack-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  @media (min-width: 1200px) {
+    gap: var(--space-8);
+  }
+}
+
+
+@utility metric-xl {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 52px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility metric-lg {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility metric-md {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Surfaces & elevation ------------------------------------------------ */
+
+@utility card-base {
+  background-color: var(--bg-surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: calc(var(--radius) + 2px);
+  box-shadow: var(--inset-highlight), var(--shadow-card);
+}
+
+@utility card-raised {
+  background-color: var(--bg-surface-2);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius);
+  box-shadow: var(--inset-highlight), var(--shadow-raised);
+}
+
+/* The single most important figure on a page. A richer radial wash gives the
+ * hero depth without competing with the figure it frames. */
+@utility card-hero {
+  position: relative;
+  background:
+    radial-gradient(
+      120% 100% at 0% 0%,
+      color-mix(in oklab, var(--accent-primary) 9%, transparent),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--accent-primary) 5%, transparent),
+      transparent 70%
+    ),
+    var(--bg-surface-1);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background-clip: padding-box;
+  box-shadow:
+    var(--inset-highlight),
+    var(--ring-accent),
+    0 18px 40px -32px color-mix(in oklab, var(--accent-primary) 36%, transparent);
+}
+
+/* Dashboard's opening surface: a little more depth without another image or
+ * a costly backdrop filter. */
+@utility entry-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(75% 130% at 100% 0%, color-mix(in oklab, var(--accent-teal) 13%, transparent), transparent 68%),
+    radial-gradient(85% 120% at 0% 0%, color-mix(in oklab, var(--accent-primary) 11%, transparent), transparent 66%),
+    var(--bg-surface-1);
+  border: 1px solid color-mix(in oklab, var(--accent-primary) 18%, var(--border-subtle));
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: var(--inset-highlight), 0 20px 48px -38px color-mix(in oklab, var(--accent-primary) 54%, transparent);
+}
+
+/* A quieter hero tint for secondary emphasis blocks. */
+@utility card-accent {
+  position: relative;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--accent-teal) 7%, transparent),
+      transparent 65%
+    ),
+    var(--bg-surface-1);
+  border: 1px solid color-mix(in oklab, var(--accent-teal) 20%, transparent);
+  border-radius: var(--radius);
+  background-clip: padding-box;
+  box-shadow: var(--inset-highlight), 0 10px 24px -22px color-mix(in oklab, var(--accent-teal) 30%, transparent);
+}
+
+/* Quiet grouping: no border, just a tinted plane. */
+@utility surface-quiet {
+  background-color: color-mix(in oklab, var(--bg-surface-2) 60%, transparent);
+  border-radius: var(--radius);
+}
+
+@utility row-hover {
+  transition: background-color 100ms ease;
+  &:hover {
+    background-color: var(--bg-surface-2);
+  }
+}
+
+@utility lift-hover {
+  transition:
+    transform 160ms cubic-bezier(0.2, 0.7, 0.3, 1),
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+  &:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--accent-primary) 24%, transparent);
+    box-shadow: var(--inset-highlight), var(--shadow-raised);
+  }
+  &:active {
+    transform: translateY(-1px);
+  }
+}
+
+@utility input-recessed {
+  background-color: color-mix(in oklab, var(--bg-surface-3) 74%, var(--bg-surface-1));
+  border: 1px solid var(--border-subtle);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.025);
+}
+
+/* Native view-transition styling remains deliberately small; it changes the
+ * colour world without making the page itself fade or move. */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 180ms; animation-timing-function: cubic-bezier(.2,.7,.3,1); }
+@media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }
+
+/* --- Skeletons ----------------------------------------------------------- */
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@utility skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-surface-2);
+  border-radius: 6px;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--text-primary) 7%, transparent),
+      transparent
+    );
+    animation: shimmer 1.4s infinite;
+  }
+}
+
+
+/* --- Motion --------------------------------------------------------------
+ * A small, deliberate motion vocabulary. Everything eases out, nothing
+ * bounces, and durations stay under 300ms so the interface feels responsive
+ * rather than animated. */
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.98) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent-teal) 40%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 6px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+@utility page-enter {
+  animation: page-enter 160ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+@utility card-enter {
+  animation: card-enter 140ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+@utility fade-up {
+  animation: fade-up 180ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+/* A live status dot: a single calm pulse, used on "current" badges. */
+@utility live-dot {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    animation: pulse-ring 2s ease-out infinite;
+  }
+}
+
+/* Stagger children in a grid by 45ms. */
+@utility stagger {
+  & > * {
+    animation: card-enter 140ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  }
+  & > *:nth-child(1) {
+    animation-delay: 0ms;
+  }
+  & > *:nth-child(2) {
+    animation-delay: 45ms;
+  }
+  & > *:nth-child(3) {
+    animation-delay: 90ms;
+  }
+  & > *:nth-child(4) {
+    animation-delay: 135ms;
+  }
+  & > *:nth-child(5) {
+    animation-delay: 180ms;
+  }
+  & > *:nth-child(6) {
+    animation-delay: 225ms;
+  }
+  & > *:nth-child(7) {
+    animation-delay: 270ms;
+  }
+  & > *:nth-child(8) {
+    animation-delay: 315ms;
+  }
+}
+
+/* Chart line draw-on, applied once on mount. */
+.chart-draw path.recharts-curve {
+  stroke-dasharray: 4000;
+  stroke-dashoffset: 4000;
+  animation: draw-line 900ms ease-out forwards;
+}
+
+/* --- Privacy mode -------------------------------------------------------- */
+
+.privacy-sensitive {
+  transition:
+    color 180ms ease-out,
+    opacity 180ms ease-out;
+}
+
+/* Masked figures keep their box, but the glyphs are swapped for dots. */
+.privacy-on .privacy-sensitive:not(.privacy-revealed) {
+  position: relative;
+  color: transparent !important;
+  cursor: pointer;
+  user-select: none;
+}
+
+.privacy-on .privacy-sensitive:not(.privacy-revealed) > * {
+  visibility: hidden;
+}
+
+.privacy-on .privacy-sensitive:not(.privacy-revealed)::after {
+  content: "₹••••••";
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: inherit;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  animation: privacy-mask-in 180ms ease-out;
+}
+
+@keyframes privacy-mask-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --- Timeline scrubber --------------------------------------------------- */
+
+.scrubber {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-teal) 0%, var(--bg-surface-3) 0%);
+  background: var(--bg-surface-3);
+  outline: none;
+  cursor: pointer;
+}
+
+.scrubber::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 999px;
+  background: var(--accent-teal);
+  border: 3px solid var(--bg-base);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent-teal) 40%, transparent);
+  transition: transform 100ms ease;
+}
+
+.scrubber:active::-webkit-slider-thumb {
+  transform: scale(1.1);
+}
+
+.scrubber::-moz-range-thumb {
+  height: 14px;
+  width: 14px;
+  border-radius: 999px;
+  background: var(--accent-teal);
+  border: 3px solid var(--bg-base);
+}
+
+.scrubber:focus-visible {
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent-teal) 35%, transparent);
+}
